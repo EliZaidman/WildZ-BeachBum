@@ -22,5 +22,11 @@ public class Player : MonoBehaviour
     [Header("Decks")]
     public List<Card> PlayerCards;
 
-
+    private void Interactable()
+    {
+        foreach (var item in PlayerCards)
+        {
+            item.interactable = true;
+        }
+    }
 }

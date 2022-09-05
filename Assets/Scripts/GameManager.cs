@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
 
 
     public string Turn;
-
+    public float SortDurasion;
 
 
 

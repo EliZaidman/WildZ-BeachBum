@@ -84,7 +84,7 @@ public class CardManager : MonoBehaviour
                 Deck[^1].BelongsTo = "Player";
                 Deck.Remove(Deck[^1]);
                 Deck[^1].eve.StartGameEvent += Deck[^1].StartGame;
-        EventManager.Instance.StartGameEvent?.Invoke(this, EventArgs.Empty);
+                EventManager.Instance.StartGameEvent?.Invoke(this, EventArgs.Empty);
                 ToggleReciveCard();
             }
             else

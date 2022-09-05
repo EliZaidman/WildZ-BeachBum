@@ -8,13 +8,14 @@ public class Card : MonoBehaviour
 
     AI _ai;
     Player _player;
-    [SerializeField]public EventManager eve;
+    [HideInInspector]public EventManager eve;
     public SpriteRenderer _sprite;
     GameManager manager;
     public int FindSlot;
-    public float duration;
+    private float duration;
     bool Special;
     public string BelongsTo;
+    public bool interactable = false;
 
     private void Awake()
     {
@@ -34,16 +35,13 @@ public class Card : MonoBehaviour
     private void Start()
     {
         eve.StartGameEvent += StartGame;
+        duration = manager.SortDurasion;
     }
 
 
-    private void Update()
+    private void OnMouseDown()
     {
-    }
-    private void LateUpdate()
-    {
-        //Only if you are inside aslot sort yourself
-
+        
     }
 
 
