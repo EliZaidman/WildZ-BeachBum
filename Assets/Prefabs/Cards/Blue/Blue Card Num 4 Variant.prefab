@@ -62,16 +62,67 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 772800004886890119, guid: 2cf4369724741c54db782f17b6676187,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 1.9791478
+      objectReference: {fileID: 0}
+    - target: {fileID: 772800004886890119, guid: 2cf4369724741c54db782f17b6676187,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 2.794
+      objectReference: {fileID: 0}
+    - target: {fileID: 772800004886890119, guid: 2cf4369724741c54db782f17b6676187,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 628950377, guid: 60d4601b22f2c6b4183b472457d31065,
+        type: 3}
+    - target: {fileID: 772800004886890119, guid: 2cf4369724741c54db782f17b6676187,
+        type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2132575246977979608, guid: 2cf4369724741c54db782f17b6676187,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 1.9791478
+      objectReference: {fileID: 0}
+    - target: {fileID: 2132575246977979608, guid: 2cf4369724741c54db782f17b6676187,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 2.794
+      objectReference: {fileID: 0}
     - target: {fileID: 2132575246977979608, guid: 2cf4369724741c54db782f17b6676187,
         type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 628950377, guid: 60d4601b22f2c6b4183b472457d31065,
         type: 3}
+    - target: {fileID: 2132575246977979608, guid: 2cf4369724741c54db782f17b6676187,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2132575246977979608, guid: 2cf4369724741c54db782f17b6676187,
+        type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5675594673397061214, guid: 2cf4369724741c54db782f17b6676187,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.125
+      objectReference: {fileID: 0}
+    - target: {fileID: 5675594673397061214, guid: 2cf4369724741c54db782f17b6676187,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.179
+      objectReference: {fileID: 0}
     - target: {fileID: 7885746136271051310, guid: 2cf4369724741c54db782f17b6676187,
         type: 3}
       propertyPath: m_Name
-      value: Blue Card Num 4
+      value: Blue Card Num 4 Variant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2cf4369724741c54db782f17b6676187, type: 3}
