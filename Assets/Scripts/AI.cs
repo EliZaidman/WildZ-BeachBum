@@ -19,4 +19,11 @@ public class AI : MonoBehaviour
         }
     }
     public List<Card> AICards;
+
+
+
+
+
+
+
 }

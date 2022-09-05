@@ -41,7 +41,19 @@ public class Card : MonoBehaviour
 
     private void OnMouseDown()
     {
-        
+        if (this.BelongsTo == "Player" && manager.Turn == "Player")
+        {
+            if (true)//SAME COLOR OR SAME NUMBER
+            {
+                //PLAY THE CARD
+            }
+        }
+
+        else if (this.BelongsTo == "AI" && manager.Turn == "AI")
+        {
+            //CALL EVENT FOR AI ALGORITHEM
+
+        }
     }
 
 
