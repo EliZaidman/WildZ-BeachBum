@@ -1108,11 +1108,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3da7b548ef2214849b0634e70e6e494f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AI_CardsPos: []
-  Human_CardsPos: []
-  Turn: 
-  PlayerCards: []
-  AICards: []
 --- !u!4 &1347878221
 Transform:
   m_ObjectHideFlags: 0
@@ -1340,6 +1335,11 @@ MonoBehaviour:
   - {fileID: 4388010378990331749, guid: 4623a35b9ce2ece4f8496b1007efa3d0, type: 3}
   - {fileID: 4830693691341046769, guid: b19e9e24d3973734db74d5e9d0d49752, type: 3}
   - {fileID: 3257851544738536458, guid: fe58c3fa9139e9846b69640eb651a6de, type: 3}
+  Turn: 
+  PlayerCards: []
+  AICards: []
+  AI_CardsPos: []
+  Human_CardsPos: []
 --- !u!4 &1492926362
 Transform:
   m_ObjectHideFlags: 0

@@ -7,7 +7,7 @@ public class CardManager : MonoBehaviour
 
 
     public List<Card> Deck;
-
+    GameManager manager;
     public List<Card> RedCards;
     public List<Card> BlueCards;
     public List<Card> YellowCards;
@@ -17,15 +17,15 @@ public class CardManager : MonoBehaviour
 
     private void Start()
     {
-        MakeDeck();
-
+        manager = GameManager.Instance;
+        StartCoroutine(MakeDeck());
     }
 
-    private void ToggleCards()
+    private void ToggleReciveCard()
     {
         givePlayer = !givePlayer;
     }
-    private void MakeDeck()
+    private IEnumerator MakeDeck()
     {
 
 
@@ -33,29 +33,58 @@ public class CardManager : MonoBehaviour
         {
             Card newCard;
             int rnd = Random.Range(0, 4);
-            print(rnd);
             int rndList = Random.Range(0, 10);
             if (rnd == 0)
             {
-                Deck.Add(RedCards[rndList]);
+                newCard = Instantiate(RedCards[rndList]);
+                Deck.Add(newCard);
+                newCard._sprite.sortingOrder = i;
             }
             if (rnd == 1)
             {
-                Deck.Add(BlueCards[rndList]);
+                newCard = Instantiate(BlueCards[rndList]);
+                Deck.Add(newCard);
+                newCard._sprite.sortingOrder = i;
             }
             if (rnd == 2)
             {
-                Deck.Add(YellowCards[rndList]);
+                newCard = Instantiate(YellowCards[rndList]);
+                Deck.Add(newCard);
+                newCard._sprite.sortingOrder = i;
             }
             if (rnd == 3)
             {
-                Deck.Add(GreenCards[rndList]);
+                newCard = Instantiate(GreenCards[rndList]);
+                Deck.Add(newCard);
+                newCard._sprite.sortingOrder = i;
             }
-            newCard = Instantiate(Deck[^1], new Vector3(0, 0, 0), Quaternion.identity);
-            newCard._sprite.sortingOrder = i;
         }
 
+        yield return new WaitForSeconds(1);
+        for (int i = 0; i < 20; i++)
+        {
+            if (manager.AICards.Count == 6 && manager.PlayerCards.Count == 6)
+            {
+                break;
+            }
+            else
+                yield return new WaitForSeconds(0.35f);
 
+            if (givePlayer)
+            {
+                manager.PlayerCards.Add(Deck[^1]);
+                Deck[^1].BelongsTo = "Player";
+                Deck.Remove(Deck[^1]);
+                ToggleReciveCard();
+            }
+            else
+            {
+                manager.AICards.Add(Deck[^1]);
+                Deck[^1].BelongsTo = "AI";
+                Deck.Remove(Deck[^1]);
+                ToggleReciveCard();
+            }
+        }
 
-    }   
+    }
 }

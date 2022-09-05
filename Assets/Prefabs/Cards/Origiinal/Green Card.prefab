@@ -131,6 +131,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sprite: {fileID: 6159428108884943476}
+  FindSlot: 0
+  duration: 0.45
+  BelongsTo: 
 --- !u!1 &7251370737795763571
 GameObject:
   m_ObjectHideFlags: 0
