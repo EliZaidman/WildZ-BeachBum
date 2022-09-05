@@ -62,10 +62,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4600440106037815504, guid: 51c145d5b7ea95348a1df30ae2dd5643,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 1410571241, guid: 60d4601b22f2c6b4183b472457d31065,
+        type: 3}
     - target: {fileID: 5705966517895144998, guid: 51c145d5b7ea95348a1df30ae2dd5643,
         type: 3}
       propertyPath: m_Name
-      value: Green Card Num 9
+      value: Green Card Num 9 Variant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 51c145d5b7ea95348a1df30ae2dd5643, type: 3}
