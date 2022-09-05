@@ -5,30 +5,39 @@ using UnityEngine;
 public class Card : MonoBehaviour
 {
 
-    static string Color;
-    static int Num;
+    AI _ai;
+    Player _player;
     public SpriteRenderer _sprite;
     GameManager manager;
     public int FindSlot;
     public float duration;
-    bool CanSort;
+    bool Special;
     public string BelongsTo;
 
-
-
+    bool sorted = false;
+    public enum color
+    {
+        Red,
+        Blue,
+        Green,
+        Yellow,
+    }
+    public int CardNum;
     private void Start()
     {
+        _player = Player.Instance;
+        _ai = AI.Instance;
         manager = GameManager.Instance;
     }
     private void Update()
     {
         if (BelongsTo == "Player")
         {
-            FindSlot = manager.PlayerCards.IndexOf(this);
+            FindSlot = _player.PlayerCards.IndexOf(this);
         }
         if (BelongsTo == "AI")
         {
-            FindSlot = manager.AICards.IndexOf(this);
+            FindSlot = _ai.AICards.IndexOf(this);
         }
 
 
@@ -36,12 +45,12 @@ public class Card : MonoBehaviour
     private void LateUpdate()
     {
         //Only if you are inside aslot sort yourself
-        if (BelongsTo == "Player")
+        if (BelongsTo == "Player" && !sorted)
         {
             StartCoroutine(PlayerSort());
         }
 
-        if (BelongsTo == "AI")
+        if (BelongsTo == "AI" && !sorted)
         {
             StartCoroutine(AISort());
         }
@@ -53,12 +62,13 @@ public class Card : MonoBehaviour
     {
         //print("Sorting" + this);
         float t = 0;
-        if (t < duration)
+        print("Sorting Player");
+        while (t < duration)
         {
             t += Time.deltaTime / duration;
             transform.position = Vector2.MoveTowards(transform.position, manager.Player_CardsPos[FindSlot].position, t / duration);
             //yield return new WaitUntil(() => transform.position == mag.MagazineSlots[FindSlot].position);
-            yield return null;
+            yield return sorted = true;
         }
 
     }
@@ -66,14 +76,15 @@ public class Card : MonoBehaviour
     IEnumerator AISort()
     {
         //print("Sorting" + this);
+        print("Sorting AI");
+
         float t = 0;
-        if (t < duration)
+        while (t < duration)
         {
             t += Time.deltaTime / duration;
             transform.position = Vector2.MoveTowards(transform.position, manager.AI_CardsPos[FindSlot].position, t / duration);
             //yield return new WaitUntil(() => transform.position == mag.MagazineSlots[FindSlot].position);
-            yield return null;
+            yield return sorted = true;
         }
-
     }
 }

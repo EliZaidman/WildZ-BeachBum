@@ -83,6 +83,11 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4743243887883628463, guid: 51c145d5b7ea95348a1df30ae2dd5643,
+        type: 3}
+      propertyPath: CardNum
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 5705966517895144998, guid: 51c145d5b7ea95348a1df30ae2dd5643,
         type: 3}
       propertyPath: m_Name

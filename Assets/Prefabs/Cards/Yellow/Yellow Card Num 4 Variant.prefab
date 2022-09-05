@@ -99,6 +99,11 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7411349754447144919, guid: eee7ec34f90fcf5428bbaf8d9318f8d8,
+        type: 3}
+      propertyPath: CardNum
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7504877332108226142, guid: eee7ec34f90fcf5428bbaf8d9318f8d8,
         type: 3}
       propertyPath: m_Name

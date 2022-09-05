@@ -116,6 +116,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6747034129550465091, guid: 89c46251759fea34a92478a2bee173f0,
         type: 3}
+      propertyPath: CardNum
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6747034129550465091, guid: 89c46251759fea34a92478a2bee173f0,
+        type: 3}
       propertyPath: _sprite
       value: 
       objectReference: {fileID: 689521542581325963}

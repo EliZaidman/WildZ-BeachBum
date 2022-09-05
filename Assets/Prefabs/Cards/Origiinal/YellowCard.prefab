@@ -216,5 +216,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sprite: {fileID: 6045384512742286505}
   FindSlot: 0
-  duration: 0.45
+  duration: 2.5
   BelongsTo: 
+  CardNum: 0

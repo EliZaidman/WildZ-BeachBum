@@ -4,19 +4,26 @@ using UnityEngine;
 
 public class CardManager : MonoBehaviour
 {
-
-
+    public int CardsInDeck;
+    AI _ai;
+    Player _player;
     public List<Card> Deck;
     GameManager manager;
     public List<Card> RedCards;
+
     public List<Card> BlueCards;
+
     public List<Card> YellowCards;
+
     public List<Card> GreenCards;
 
     bool givePlayer = true;
 
     private void Start()
     {
+        _player = Player.Instance;
+        _ai = AI.Instance;
+
         manager = GameManager.Instance;
         StartCoroutine(MakeDeck());
     }
@@ -29,7 +36,7 @@ public class CardManager : MonoBehaviour
     {
 
 
-        for (int i = 0; i < 52; i++)
+        for (int i = 0; i < CardsInDeck; i++)
         {
             Card newCard;
             int rnd = Random.Range(0, 4);
@@ -55,15 +62,15 @@ public class CardManager : MonoBehaviour
             if (rnd == 3)
             {
                 newCard = Instantiate(GreenCards[rndList]);
-                Deck.Add(newCard);
                 newCard._sprite.sortingOrder = i;
+                Deck.Add(newCard);
             }
         }
 
         yield return new WaitForSeconds(1);
         for (int i = 0; i < 20; i++)
         {
-            if (manager.AICards.Count == 6 && manager.PlayerCards.Count == 6)
+            if (_ai.AICards.Count == 6 && _player.PlayerCards.Count == 6)
             {
                 break;
             }
@@ -72,14 +79,14 @@ public class CardManager : MonoBehaviour
 
             if (givePlayer)
             {
-                manager.PlayerCards.Add(Deck[^1]);
+                _player.PlayerCards.Add(Deck[^1]);
                 Deck[^1].BelongsTo = "Player";
                 Deck.Remove(Deck[^1]);
                 ToggleReciveCard();
             }
             else
             {
-                manager.AICards.Add(Deck[^1]);
+                _ai.AICards.Add(Deck[^1]);
                 Deck[^1].BelongsTo = "AI";
                 Deck.Remove(Deck[^1]);
                 ToggleReciveCard();
