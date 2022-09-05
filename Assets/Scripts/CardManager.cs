@@ -1,7 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Random = UnityEngine.Random;
 public class CardManager : MonoBehaviour
 {
     public int CardsInDeck;
@@ -82,6 +83,8 @@ public class CardManager : MonoBehaviour
                 _player.PlayerCards.Add(Deck[^1]);
                 Deck[^1].BelongsTo = "Player";
                 Deck.Remove(Deck[^1]);
+                Deck[^1].eve.StartGameEvent += Deck[^1].StartGame;
+        EventManager.Instance.StartGameEvent?.Invoke(this, EventArgs.Empty);
                 ToggleReciveCard();
             }
             else
@@ -89,9 +92,12 @@ public class CardManager : MonoBehaviour
                 _ai.AICards.Add(Deck[^1]);
                 Deck[^1].BelongsTo = "AI";
                 Deck.Remove(Deck[^1]);
+                Deck[^1].eve.StartGameEvent += Deck[^1].StartGame;
+                EventManager.Instance.StartGameEvent?.Invoke(this, EventArgs.Empty);
                 ToggleReciveCard();
             }
         }
+        manager.ToggleTurnOrder();
 
     }
 }

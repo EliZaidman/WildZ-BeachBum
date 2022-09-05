@@ -214,8 +214,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a7cb6599a670c54a99d4de15f8b23f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  eve: {fileID: 0}
   _sprite: {fileID: 772800004886890119}
   FindSlot: 0
-  duration: 2.5
+  duration: 8.5
   BelongsTo: 
   CardNum: 0

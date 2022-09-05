@@ -34,7 +34,28 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            ToggleTurnOrder();
+        }
 
+    }
 
+    public void ToggleTurnOrder()
+    {
+        if (Turn == "Human")
+        {
+            Turn = "AI";
+        }
+
+        else if (Turn == "AI")
+        {
+            Turn = "Human";
+        }
+
+        else
+        {
+            Turn = "Human";
+        }
     }
 }
