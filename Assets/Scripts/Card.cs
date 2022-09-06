@@ -28,6 +28,15 @@ public class Card : MonoBehaviour
     }
     public string _color;
 
+    //1 = Red 2 = Green 3 = Blue = 4 Yellow
+    public enum eColor
+    {
+        Red,
+        Green,
+        Blue,
+        Yellow,
+    }
+
     public int CardNum;
     private void Start()
     {
@@ -47,11 +56,13 @@ public class Card : MonoBehaviour
                 print("Inside");
                 StartCoroutine(SortToBoard());
             }
+            manager.ToggleTurnOrder();
         }
 
         else if (this.BelongsTo == "Player" || manager.Turn == "AI")
         {
             //CALL EVENT FOR AI ALGORITHEM
+            manager.ToggleTurnOrder();
 
         }
     }
@@ -69,7 +80,7 @@ public class Card : MonoBehaviour
         {
             t += Time.deltaTime / duration;
             transform.position = Vector2.MoveTowards(transform.position, manager.Player_CardsPos[CardIndexPreSort()].position, t / duration);
-            yield return sorted = true;
+            yield return null;
         }
     }
 
@@ -82,7 +93,7 @@ public class Card : MonoBehaviour
         {
             t += Time.deltaTime / duration;
             transform.position = Vector2.MoveTowards(transform.position, manager.AI_CardsPos[CardIndexPreSort()].position, t / duration);
-            yield return sorted = true;
+            yield return null;
         }
     }
 
@@ -95,7 +106,7 @@ public class Card : MonoBehaviour
         {
             t += Time.deltaTime / duration;
             transform.position = Vector2.MoveTowards(transform.position, manager.CardsTray.position, t / duration);
-            yield return sorted = true;
+            yield return null;
         }
     }
 
@@ -108,7 +119,7 @@ public class Card : MonoBehaviour
             {
                 t += Time.deltaTime / duration;
                 transform.position = Vector2.MoveTowards(transform.position, manager.Player_CardsPos[CardIndex()].position, t / duration);
-                yield return sorted = true;
+                yield return null;
             }
         }
     }
@@ -136,7 +147,7 @@ public class Card : MonoBehaviour
 
     int CardIndex()
     {
-            return _player.sortedHand.IndexOf(this);
+        return _player.sortedHand.IndexOf(this);
     }
 
     public void StartGame(object sender, EventArgs e)

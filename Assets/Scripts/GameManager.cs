@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -23,7 +24,7 @@ public class GameManager : MonoBehaviour
 
     public Transform CardsTray;
     public Transform DeckTray;
-
+    public TextMeshProUGUI turnTPM;
 
 
     public string Turn;
@@ -44,7 +45,7 @@ public class GameManager : MonoBehaviour
     }
     private void Update()
     {
-
+        turnTPM.text = Turn;
 
     }
 
