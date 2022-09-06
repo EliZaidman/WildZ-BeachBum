@@ -19,6 +19,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public int MaxCardInHand;
+
+    public Transform CardsTray;
+    public Transform DeckTray;
+
+
 
     public string Turn;
     public float SortDurasion;
@@ -32,12 +38,13 @@ public class GameManager : MonoBehaviour
     [Space]
     public List<Transform> Player_CardsPos;
 
+    private void Start()
+    {
+        MaxCardInHand = AI_CardsPos.Count;
+    }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            ToggleTurnOrder();
-        }
+
 
     }
 
@@ -55,7 +62,7 @@ public class GameManager : MonoBehaviour
 
         else
         {
-            Turn = "Human";
+            Turn = "AI";
         }
     }
 }

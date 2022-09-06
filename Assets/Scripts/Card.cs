@@ -8,8 +8,10 @@ public class Card : MonoBehaviour
 
     AI _ai;
     Player _player;
-    [HideInInspector]public EventManager eve;
-    public SpriteRenderer _sprite;
+    CardManager _cardman;
+    [HideInInspector] public EventManager eve;
+    public SpriteRenderer _front;
+    public SpriteRenderer _back;
     GameManager manager;
     public int FindSlot;
     private float duration;
@@ -24,32 +26,30 @@ public class Card : MonoBehaviour
         manager = GameManager.Instance;
         eve = EventManager.Instance;
     }
-    public enum color
-    {
-        Red,
-        Blue,
-        Green,
-        Yellow,
-    }
+    public string _color;
+
     public int CardNum;
     private void Start()
     {
+        _cardman = CardManager.Instance;
         eve.StartGameEvent += StartGame;
+        eve.SortHand += SortHandEve;
         duration = manager.SortDurasion;
     }
 
 
     private void OnMouseDown()
     {
-        if (this.BelongsTo == "Player" && manager.Turn == "Player")
+        if (this.BelongsTo == "Player" || manager.Turn == "AI")
         {
-            if (true)//SAME COLOR OR SAME NUMBER
+            if (_cardman.Board.Count == 0)
             {
-                //PLAY THE CARD
+                print("Inside");
+                StartCoroutine(SortToBoard());
             }
         }
 
-        else if (this.BelongsTo == "AI" && manager.Turn == "AI")
+        else if (this.BelongsTo == "Player" || manager.Turn == "AI")
         {
             //CALL EVENT FOR AI ALGORITHEM
 
@@ -62,31 +62,66 @@ public class Card : MonoBehaviour
 
     IEnumerator PlayerSort()
     {
-        CardIndex();
+        CardIndexPreSort();
+        FlipCard();
         float t = 0;
         while (t < duration)
         {
             t += Time.deltaTime / duration;
-            transform.position = Vector2.MoveTowards(transform.position, manager.Player_CardsPos[CardIndex()].position, t / duration);
+            transform.position = Vector2.MoveTowards(transform.position, manager.Player_CardsPos[CardIndexPreSort()].position, t / duration);
             yield return sorted = true;
         }
     }
 
     IEnumerator AISort()
     {
-        CardIndex();
+        CardIndexPreSort();
+        FlipCard();
         float t = 0;
         while (t < duration)
         {
             t += Time.deltaTime / duration;
-            transform.position = Vector2.MoveTowards(transform.position, manager.AI_CardsPos[CardIndex()].position, t / duration);
+            transform.position = Vector2.MoveTowards(transform.position, manager.AI_CardsPos[CardIndexPreSort()].position, t / duration);
             yield return sorted = true;
+        }
+    }
+
+    IEnumerator SortToBoard()
+    {
+        CardIndexPreSort();
+        _cardman.Board.Add(this);
+        float t = 0;
+        while (t < duration)
+        {
+            t += Time.deltaTime / duration;
+            transform.position = Vector2.MoveTowards(transform.position, manager.CardsTray.position, t / duration);
+            yield return sorted = true;
+        }
+    }
+
+    IEnumerator SortInHand()
+    {
+        if (BelongsTo == "Player")
+        {
+            float t = 0;
+            while (t < duration)
+            {
+                t += Time.deltaTime / duration;
+                transform.position = Vector2.MoveTowards(transform.position, manager.Player_CardsPos[CardIndex()].position, t / duration);
+                yield return sorted = true;
+            }
         }
     }
 
     #endregion
 
-    int CardIndex()
+    private void FlipCard()
+    {
+        print("Card Flipped");
+        _front.gameObject.SetActive(true);
+        _back.gameObject.SetActive(false);
+    }
+    int CardIndexPreSort()
     {
         if (BelongsTo == "Player")
         {
@@ -96,7 +131,12 @@ public class Card : MonoBehaviour
         {
             return _ai.AICards.IndexOf(this);
         }
-        return CardIndex();
+        return CardIndexPreSort();
+    }
+
+    int CardIndex()
+    {
+            return _player.sortedHand.IndexOf(this);
     }
 
     public void StartGame(object sender, EventArgs e)
@@ -112,5 +152,10 @@ public class Card : MonoBehaviour
             StartCoroutine(AISort());
         }
     }
+    public void SortHandEve(object sender, EventArgs e)
+    {
+        StartCoroutine(SortInHand());
+    }
+
 
 }

@@ -5,11 +5,32 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 public class CardManager : MonoBehaviour
 {
-    public int CardsInDeck;
+    public static CardManager Instance { get; private set; }
+    private void Awake()
+    {
+        // If there is an instance, and it's not me, delete myself.
+
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
+
+
+    GameManager manager;
     AI _ai;
     Player _player;
+    bool givePlayer = true;
+    public int CardsInDeck;
+
     public List<Card> Deck;
-    GameManager manager;
+
+    public List<Card> Board;
+
     public List<Card> RedCards;
 
     public List<Card> BlueCards;
@@ -18,7 +39,6 @@ public class CardManager : MonoBehaviour
 
     public List<Card> GreenCards;
 
-    bool givePlayer = true;
 
     private void Start()
     {
@@ -44,26 +64,26 @@ public class CardManager : MonoBehaviour
             int rndList = Random.Range(0, 10);
             if (rnd == 0)
             {
-                newCard = Instantiate(RedCards[rndList]);
+                newCard = Instantiate(RedCards[rndList],manager.DeckTray.position,Quaternion.identity);
                 Deck.Add(newCard);
-                newCard._sprite.sortingOrder = i;
+                newCard._front.sortingOrder = i;
             }
             if (rnd == 1)
             {
-                newCard = Instantiate(BlueCards[rndList]);
+                newCard = Instantiate(BlueCards[rndList], manager.DeckTray.position, Quaternion.identity);
                 Deck.Add(newCard);
-                newCard._sprite.sortingOrder = i;
+                newCard._front.sortingOrder = i;
             }
             if (rnd == 2)
             {
-                newCard = Instantiate(YellowCards[rndList]);
+                newCard = Instantiate(YellowCards[rndList], manager.DeckTray.position, Quaternion.identity);
                 Deck.Add(newCard);
-                newCard._sprite.sortingOrder = i;
+                newCard._front.sortingOrder = i;
             }
             if (rnd == 3)
             {
-                newCard = Instantiate(GreenCards[rndList]);
-                newCard._sprite.sortingOrder = i;
+                newCard = Instantiate(GreenCards[rndList], manager.DeckTray.position, Quaternion.identity);
+                newCard._front.sortingOrder = i;
                 Deck.Add(newCard);
             }
         }
@@ -71,7 +91,7 @@ public class CardManager : MonoBehaviour
         yield return new WaitForSeconds(1);
         for (int i = 0; i < 20; i++)
         {
-            if (_ai.AICards.Count == 6 && _player.PlayerCards.Count == 6)
+            if (_ai.AICards.Count == manager.MaxCardInHand && _player.PlayerCards.Count == manager.MaxCardInHand)
             {
                 break;
             }
@@ -98,7 +118,7 @@ public class CardManager : MonoBehaviour
             }
         }
         manager.ToggleTurnOrder();
-
+        StartCoroutine(_player.SortHand());
     }
 
 

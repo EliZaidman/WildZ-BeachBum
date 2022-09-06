@@ -23,6 +23,7 @@ public class EventManager : MonoBehaviour
 
     //Tiles Events
     public EventHandler StartGameEvent;
+    public EventHandler SortHand;
 
 
 

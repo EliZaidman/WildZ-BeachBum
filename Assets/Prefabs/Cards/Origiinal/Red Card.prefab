@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3907524252611432951
 Transform:
   m_ObjectHideFlags: 0
@@ -94,6 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4428704269052752405}
   - component: {fileID: 6747034129550465091}
+  - component: {fileID: 4254214867411759159}
   m_Layer: 0
   m_Name: Red Card
   m_TagString: Untagged
@@ -131,11 +132,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eve: {fileID: 0}
-  _sprite: {fileID: 2565940808784995253}
+  _front: {fileID: 2565940808784995253}
+  _back: {fileID: 6755746245375555364}
   FindSlot: 0
-  duration: 8.5
   BelongsTo: 
+  interactable: 0
+  _color: Red
   CardNum: 0
+--- !u!61 &4254214867411759159
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6007395862215119306}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.000000029802322, y: -0.0088226795}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.6587529, y: 2.5116029}
+  m_EdgeRadius: 0
 --- !u!1 &8934845501711815463
 GameObject:
   m_ObjectHideFlags: 0
