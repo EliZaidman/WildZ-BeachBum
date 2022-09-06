@@ -1,4 +1,5 @@
 using System;
+using System.Windows;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -100,19 +101,19 @@ public class CardManager : MonoBehaviour
 
             if (givePlayer)
             {
-                _player.PlayerCards.Add(Deck[^1]);
-                Deck[^1].BelongsTo = "Player";
-                Deck.Remove(Deck[^1]);
-                Deck[^1].eve.StartGameEvent += Deck[^1].StartGame;
+                _player.PlayerCards.Add(Deck[Deck.Count -1]);
+                Deck[Deck.Count -1].BelongsTo = "Player";
+                Deck.Remove(Deck[Deck.Count -1]);
+                Deck[Deck.Count -1].eve.StartGameEvent += Deck[Deck.Count -1].StartGame;
                 EventManager.Instance.StartGameEvent?.Invoke(this, EventArgs.Empty);
                 ToggleReciveCard();
             }
             else
             {
-                _ai.AICards.Add(Deck[^1]);
-                Deck[^1].BelongsTo = "AI";
-                Deck.Remove(Deck[^1]);
-                Deck[^1].eve.StartGameEvent += Deck[^1].StartGame;
+                _ai.AICards.Add(Deck[Deck.Count -1]);
+                Deck[Deck.Count -1].BelongsTo = "AI";
+                Deck.Remove(Deck[Deck.Count -1]);
+                Deck[Deck.Count -1].eve.StartGameEvent += Deck[Deck.Count -1].StartGame;
                 EventManager.Instance.StartGameEvent?.Invoke(this, EventArgs.Empty);
                 ToggleReciveCard();
             }
