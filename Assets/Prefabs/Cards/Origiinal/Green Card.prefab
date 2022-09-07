@@ -91,7 +91,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2379255157741798905}
   - component: {fileID: 4743243887883628463}
-  - component: {fileID: 8335190411308505406}
+  - component: {fileID: 6322322539865735106}
   m_Layer: 0
   m_Name: Green Card
   m_TagString: Untagged
@@ -133,9 +133,10 @@ MonoBehaviour:
   FindSlot: 0
   BelongsTo: 
   interactable: 0
+  TopCard: 0
   _color: Green
   CardNum: 0
---- !u!61 &8335190411308505406
+--- !u!61 &6322322539865735106
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -148,7 +149,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.000000029802322, y: -0.0088226795}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -159,7 +160,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.6587529, y: 2.5116029}
+  m_Size: {x: 1.5, y: 2.4}
   m_EdgeRadius: 0
 --- !u!1 &7251370737795763571
 GameObject:

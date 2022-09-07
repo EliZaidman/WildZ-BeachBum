@@ -53,12 +53,21 @@ public class Card : MonoBehaviour
         {
             TopCard = false;
         }
+        if (_cardman.Deck.Contains(this) && !TopCard)
+        {
+            GetComponent<BoxCollider2D>().enabled = false;
+
+        }
+        if (TopCard)
+        {
+            GetComponent<BoxCollider2D>().enabled = true;
+        }
     }
     private void OnMouseDown()
     {
         if (TopCard)
         {
-            DrawCard();
+            StartCoroutine(DrawCard());
             print("DrawnCard");
         }
 
@@ -100,7 +109,6 @@ public class Card : MonoBehaviour
     IEnumerator PlayerSort()
     {
         FlipCard();
-        //BelongsTo = "Human";
         float t = 0;
         while (t < duration)
         {
@@ -149,7 +157,6 @@ public class Card : MonoBehaviour
 
     IEnumerator SortInHand()
     {
-        yield return new WaitForSeconds(0.1f);
         if (BelongsTo == "Player")
         {
             float t = 0;
@@ -162,17 +169,19 @@ public class Card : MonoBehaviour
         }
     }
 
-    public void DrawCard()
+    public IEnumerator DrawCard()
     {
 
         if (manager.Turn == "Player")
         {
-            BelongsTo = "Player";
             FlipCard();
+            BelongsTo = "Player";
+            yield return new WaitForSeconds(0.2f);
             _cardman.Deck.Remove(this);
             _player.PlayerCards.Add(this);
             _player.sortedHand.Add(this);
             EventManager.Instance.SortHand?.Invoke(this, EventArgs.Empty);
+            manager.ToggleTurnOrder();
         }
 
     }
