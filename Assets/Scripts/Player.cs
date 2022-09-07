@@ -90,7 +90,6 @@ public class Player : MonoBehaviour
                 if (item.CardNum == i)
                 {
                     sortedHand.Add(item);
-                    print("added to main!" + item);
                 }
             }
         }

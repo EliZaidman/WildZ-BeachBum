@@ -18,7 +18,7 @@ public class Card : MonoBehaviour
     bool Special;
     public string BelongsTo;
     public bool interactable = false;
-
+    public bool TopCard = false;
 
     private void Awake()
     {
@@ -47,16 +47,29 @@ public class Card : MonoBehaviour
         duration = manager.SortDurasion;
     }
 
-
+    private void Update()
+    {
+        if (!_cardman.Deck.Contains(this))
+        {
+            TopCard = false;
+        }
+    }
     private void OnMouseDown()
     {
-        if (CanPlayCard())
+        if (TopCard)
+        {
+            DrawCard();
+            print("DrawnCard");
+        }
+
+        if (CanPlayCard() && !_cardman.Deck.Contains(this) && !_cardman.Board.Contains(this) && !TopCard)
         {
             if (manager.Turn == "Player" && this.BelongsTo == "Player" || manager.Turn == "AI" && this.BelongsTo == "AI")
             {
                 StartCoroutine(SortToBoard());
                 manager.ToggleTurnOrder();
                 _front.sortingOrder = _cardman.highestLayer + 2;
+                _cardman.highestLayer += 1;
             }
             else
             {
@@ -67,11 +80,11 @@ public class Card : MonoBehaviour
 
     private bool CanPlayCard()
     {
-        if (_cardman.TopCard(_cardman.Board)._color == this._color)
+        if (_cardman.BoardTopCard()._color == this._color)
         {
             return true;
         }
-        else if (_cardman.TopCard(_cardman.Board).CardNum == this.CardNum)
+        else if (_cardman.BoardTopCard().CardNum == this.CardNum)
         {
             return true;
         }
@@ -87,6 +100,7 @@ public class Card : MonoBehaviour
     IEnumerator PlayerSort()
     {
         FlipCard();
+        //BelongsTo = "Human";
         float t = 0;
         while (t < duration)
         {
@@ -99,6 +113,7 @@ public class Card : MonoBehaviour
     IEnumerator AISort()
     {
         FlipCard();
+        //BelongsTo = "AI";
         float t = 0;
         while (t < duration)
         {
@@ -112,6 +127,17 @@ public class Card : MonoBehaviour
     {
         FlipCard();
         _cardman.Board.Add(this);
+        if (_cardman.Deck.Contains(this))
+            _cardman.Deck.Remove(this);
+
+        if (_player.PlayerCards.Contains(this))
+        {
+            _player.PlayerCards.Remove(this);
+            _player.sortedHand.Remove(this);
+        }
+
+        if (_ai.AICards.Contains(this))
+            _ai.AICards.Remove(this);
         float t = 0;
         while (t < duration)
         {
@@ -123,6 +149,7 @@ public class Card : MonoBehaviour
 
     IEnumerator SortInHand()
     {
+        yield return new WaitForSeconds(0.1f);
         if (BelongsTo == "Player")
         {
             float t = 0;
@@ -135,6 +162,20 @@ public class Card : MonoBehaviour
         }
     }
 
+    public void DrawCard()
+    {
+
+        if (manager.Turn == "Player")
+        {
+            BelongsTo = "Player";
+            FlipCard();
+            _cardman.Deck.Remove(this);
+            _player.PlayerCards.Add(this);
+            _player.sortedHand.Add(this);
+            EventManager.Instance.SortHand?.Invoke(this, EventArgs.Empty);
+        }
+
+    }
     #endregion
 
     private void FlipCard()

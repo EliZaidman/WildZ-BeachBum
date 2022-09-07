@@ -51,6 +51,10 @@ public class CardManager : MonoBehaviour
         StartCoroutine(MakeDeck());
     }
 
+    private void Update()
+    {
+        TopCard().TopCard = true;
+    }
     private void ToggleReciveCard()
     {
         givePlayer = !givePlayer;
@@ -102,33 +106,41 @@ public class CardManager : MonoBehaviour
 
             if (givePlayer)
             {
-                _player.PlayerCards.Add(Deck[Deck.Count -1]);
-                Deck[Deck.Count -1].BelongsTo = "Player";
-                Deck.Remove(Deck[Deck.Count -1]);
-                Deck[Deck.Count -1].eve.StartGameEvent += Deck[Deck.Count -1].StartGame;
+                TopCard().BelongsTo = "Player";
+                _player.PlayerCards.Add(TopCard());
+                Deck.Remove(TopCard());
+                TopCard().eve.StartGameEvent += TopCard().StartGame;
                 EventManager.Instance.StartGameEvent?.Invoke(this, EventArgs.Empty);
                 ToggleReciveCard();
+                TopCard().TopCard = false;
             }
             else
             {
-                _ai.AICards.Add(Deck[Deck.Count -1]);
-                Deck[Deck.Count -1].BelongsTo = "AI";
-                Deck.Remove(Deck[Deck.Count -1]);
-                Deck[Deck.Count -1].eve.StartGameEvent += Deck[Deck.Count -1].StartGame;
+                TopCard().BelongsTo = "AI";
+                _ai.AICards.Add(TopCard());
+                Deck.Remove(TopCard());
+                TopCard().eve.StartGameEvent += TopCard().StartGame;
                 EventManager.Instance.StartGameEvent?.Invoke(this, EventArgs.Empty);
                 ToggleReciveCard();
+                TopCard().TopCard = false;
+
             }
         }
         manager.ToggleTurnOrder();
         StartCoroutine(_player.SortHand());
-        StartCoroutine(Deck[Deck.Count - 1].SortToBoard());
-        Deck[Deck.Count - 1]._front.sortingOrder = 0;
+        TopCard()._front.sortingOrder = 1;
+        StartCoroutine(TopCard().SortToBoard());
     }
 
     
-    public Card TopCard(List<Card> card)
-    {
-        return card[card.Count - 1];
-    }
 
+
+    public Card TopCard()
+    {
+        return Deck[Deck.Count - 1];
+    }
+    public Card BoardTopCard()
+    {
+        return Board[Board.Count - 1];
+    }
 }
