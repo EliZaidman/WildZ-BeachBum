@@ -51,14 +51,14 @@ public class GameManager : MonoBehaviour
 
     public void ToggleTurnOrder()
     {
-        if (Turn == "Human")
+        if (Turn == "Player")
         {
             Turn = "AI";
         }
 
         else if (Turn == "AI")
         {
-            Turn = "Human";
+            Turn = "Player";
         }
 
         else

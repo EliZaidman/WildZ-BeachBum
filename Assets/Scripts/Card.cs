@@ -19,6 +19,7 @@ public class Card : MonoBehaviour
     public string BelongsTo;
     public bool interactable = false;
 
+
     private void Awake()
     {
         _player = Player.Instance;
@@ -49,31 +50,42 @@ public class Card : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (this.BelongsTo == "Player" || manager.Turn == "AI")
+        if (CanPlayCard())
         {
-            if (_cardman.Board.Count == 0)
+            if (manager.Turn == "Player" && this.BelongsTo == "Player" || manager.Turn == "AI" && this.BelongsTo == "AI")
             {
-                print("Inside");
                 StartCoroutine(SortToBoard());
+                manager.ToggleTurnOrder();
+                _front.sortingOrder = _cardman.highestLayer + 2;
             }
-            manager.ToggleTurnOrder();
-        }
-
-        else if (this.BelongsTo == "Player" || manager.Turn == "AI")
-        {
-            //CALL EVENT FOR AI ALGORITHEM
-            manager.ToggleTurnOrder();
-
+            else
+            {
+                print("ITS NOT YOUR TURN SIR!");
+            }
         }
     }
 
+    private bool CanPlayCard()
+    {
+        if (_cardman.TopCard(_cardman.Board)._color == this._color)
+        {
+            return true;
+        }
+        else if (_cardman.TopCard(_cardman.Board).CardNum == this.CardNum)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
     #region Sort Corutines
     bool sorted = false;
 
     IEnumerator PlayerSort()
     {
-        CardIndexPreSort();
         FlipCard();
         float t = 0;
         while (t < duration)
@@ -86,7 +98,6 @@ public class Card : MonoBehaviour
 
     IEnumerator AISort()
     {
-        CardIndexPreSort();
         FlipCard();
         float t = 0;
         while (t < duration)
@@ -97,9 +108,9 @@ public class Card : MonoBehaviour
         }
     }
 
-    IEnumerator SortToBoard()
+    public IEnumerator SortToBoard()
     {
-        CardIndexPreSort();
+        FlipCard();
         _cardman.Board.Add(this);
         float t = 0;
         while (t < duration)

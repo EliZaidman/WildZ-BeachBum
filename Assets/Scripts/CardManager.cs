@@ -40,6 +40,7 @@ public class CardManager : MonoBehaviour
 
     public List<Card> GreenCards;
 
+    public int highestLayer = 1;
 
     private void Start()
     {
@@ -120,7 +121,14 @@ public class CardManager : MonoBehaviour
         }
         manager.ToggleTurnOrder();
         StartCoroutine(_player.SortHand());
+        StartCoroutine(Deck[Deck.Count - 1].SortToBoard());
+        Deck[Deck.Count - 1]._front.sortingOrder = 0;
     }
 
+    
+    public Card TopCard(List<Card> card)
+    {
+        return card[card.Count - 1];
+    }
 
 }
