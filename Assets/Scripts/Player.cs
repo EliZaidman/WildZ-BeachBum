@@ -24,10 +24,7 @@ public class Player : MonoBehaviour
     public List<Card> PlayerCards;
     public List<Card> sortedHand;
 
-    public List<Card> redCards = new List<Card>();
-    public List<Card> yellowCards = new List<Card>();
-    public List<Card> blueCards = new List<Card>();
-    public List<Card> GreenCards = new List<Card>();
+
 
     private void Update()
     {
@@ -43,7 +40,10 @@ public class Player : MonoBehaviour
 
     public IEnumerator SortHand()
     {
-
+        List<Card> redCards = new List<Card>();
+        List<Card> yellowCards = new List<Card>();
+        List<Card> blueCards = new List<Card>();
+        List<Card> GreenCards = new List<Card>();
         foreach (var item in PlayerCards)
         {
             if (item._color == "Red")
@@ -57,12 +57,12 @@ public class Player : MonoBehaviour
                 print("addeed" + yellowCards);
 
             }
-            else if(item._color == "Blue")
+            else if (item._color == "Blue")
             {
                 blueCards.Add(item);
                 print("addeed" + blueCards);
             }
-            else if(item._color == "Green")
+            else if (item._color == "Green")
             {
                 GreenCards.Add(item);
                 print("addeed" + GreenCards);
