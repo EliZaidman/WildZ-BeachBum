@@ -30,13 +30,7 @@ public class Player : MonoBehaviour
     {
 
     }
-    private void Interactable()
-    {
-        foreach (var item in PlayerCards)
-        {
-            item.interactable = true;
-        }
-    }
+
 
     public IEnumerator SortHand()
     {

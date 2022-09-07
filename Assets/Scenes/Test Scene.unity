@@ -1716,7 +1716,7 @@ MonoBehaviour:
   DeckTray: {fileID: 158367917}
   turnTPM: {fileID: 2086998280}
   Turn: 
-  SortDurasion: 1
+  SortDurasion: 0.75
   AI_CardsPos:
   - {fileID: 2040502414}
   - {fileID: 948164522}

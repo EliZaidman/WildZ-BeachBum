@@ -77,8 +77,7 @@ public class Card : MonoBehaviour
             {
                 StartCoroutine(SortToBoard());
                 manager.ToggleTurnOrder();
-                _front.sortingOrder = _cardman.highestLayer + 2;
-                _cardman.highestLayer += 1;
+                RiseLayer();
             }
             else
             {
@@ -108,31 +107,38 @@ public class Card : MonoBehaviour
 
     IEnumerator PlayerSort()
     {
-        FlipCard();
-        float t = 0;
-        while (t < duration)
+        if (_player.PlayerCards.Contains(this))
         {
-            t += Time.deltaTime / duration;
-            transform.position = Vector2.MoveTowards(transform.position, manager.Player_CardsPos[CardIndexPreSort()].position, t / duration);
-            yield return null;
+            FlipCard();
+            float t = 0;
+            while (t < duration)
+            {
+                t += Time.deltaTime / duration;
+                transform.position = Vector2.MoveTowards(transform.position, manager.Player_CardsPos[CardIndexPreSort()].position, t / duration);
+                yield return null;
+            }
         }
     }
 
-    IEnumerator AISort()
+    public IEnumerator AISort()
     {
-        FlipCard();
-        //BelongsTo = "AI";
-        float t = 0;
-        while (t < duration)
+        if (_ai.AICards.Contains(this))
         {
-            t += Time.deltaTime / duration;
-            transform.position = Vector2.MoveTowards(transform.position, manager.AI_CardsPos[CardIndexPreSort()].position, t / duration);
-            yield return null;
+            FlipCard();
+            //BelongsTo = "AI";
+            float t = 0;
+            while (t < duration)
+            {
+                t += Time.deltaTime / duration;
+                transform.position = Vector2.MoveTowards(transform.position, manager.AI_CardsPos[CardIndexPreSort()].position, t / duration);
+                yield return null;
+            }
         }
     }
 
     public IEnumerator SortToBoard()
     {
+        RiseLayer();
         FlipCard();
         _cardman.Board.Add(this);
         if (_cardman.Deck.Contains(this))
@@ -157,7 +163,7 @@ public class Card : MonoBehaviour
 
     IEnumerator SortInHand()
     {
-        if (BelongsTo == "Player")
+        if (_player.sortedHand.Contains(this))
         {
             float t = 0;
             while (t < duration)
@@ -167,11 +173,11 @@ public class Card : MonoBehaviour
                 yield return null;
             }
         }
+        
     }
 
     public IEnumerator DrawCard()
     {
-
         if (manager.Turn == "Player")
         {
             FlipCard();
@@ -183,8 +189,16 @@ public class Card : MonoBehaviour
             EventManager.Instance.SortHand?.Invoke(this, EventArgs.Empty);
             manager.ToggleTurnOrder();
         }
-
     }
+
+    public IEnumerator AIDrawCard()
+    {
+            FlipCard();
+            BelongsTo = "AI";
+            yield return new WaitForSeconds(0.2f);
+            _cardman.Deck.Remove(this);
+            _ai.AICards.Add(this);
+    }   
     #endregion
 
     private void FlipCard()
@@ -227,7 +241,14 @@ public class Card : MonoBehaviour
     public void SortHandEve(object sender, EventArgs e)
     {
         StartCoroutine(SortInHand());
+        StartCoroutine(AISort());
     }
 
 
+    public void RiseLayer()
+    {
+        _front.sortingOrder = _cardman.highestLayer + 2;
+        _front.sortingOrder = _cardman.highestLayer + 2;
+
+    }
 }

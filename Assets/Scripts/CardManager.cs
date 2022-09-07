@@ -54,6 +54,10 @@ public class CardManager : MonoBehaviour
     private void Update()
     {
         TopCard().TopCard = true;
+        if (Board.Count > 0)
+            BoardTopCard()._front.sortingOrder = 99;
+        if (Board.Count > 1)
+            UnderTopBoard()._front.sortingOrder = 98;
     }
     private void ToggleReciveCard()
     {
@@ -70,7 +74,7 @@ public class CardManager : MonoBehaviour
             int rndList = Random.Range(0, 10);
             if (rnd == 0)
             {
-                newCard = Instantiate(RedCards[rndList],manager.DeckTray.position,Quaternion.identity);
+                newCard = Instantiate(RedCards[rndList], manager.DeckTray.position, Quaternion.identity);
                 Deck.Add(newCard);
                 newCard._front.sortingOrder = i;
             }
@@ -132,7 +136,7 @@ public class CardManager : MonoBehaviour
         StartCoroutine(TopCard().SortToBoard());
     }
 
-    
+
 
 
     public Card TopCard()
@@ -142,5 +146,10 @@ public class CardManager : MonoBehaviour
     public Card BoardTopCard()
     {
         return Board[Board.Count - 1];
+    }
+    public Card UnderTopBoard()
+    {
+        return Board[Board.Count - 2];
+
     }
 }

@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         turnTPM.text = Turn;
-
+        
     }
 
     public void ToggleTurnOrder()
@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour
 
         else
         {
-            Turn = "AI";
+            Turn = "Player";
         }
     }
 }
