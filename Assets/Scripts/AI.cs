@@ -20,12 +20,13 @@ public class AI : MonoBehaviour
             Instance = this;
         }
     }
+    [SerializeField] float FakeTurnDuration;
     public List<Card> AICards;
 
-
+    bool playedCard = false;
     private void Update()
     {
-        if (GameManager.Instance.Turn == "AI")
+        if (GameManager.Instance.Turn == "AI" && !playedCard)
         {
             StartCoroutine(PlayCard());
         }
@@ -34,10 +35,11 @@ public class AI : MonoBehaviour
     bool found = false;
     IEnumerator PlayCard()
     {
-            GameManager.Instance.ToggleTurnOrder();
+        playedCard = true;
+        yield return new WaitForSeconds(FakeTurnDuration);
+        GameManager.Instance.ToggleTurnOrder();
 
-            var suggestedlist = AICards.Where(c => c._color == CardManager.Instance.BoardTopCard()._color || c.CardNum == CardManager.Instance.BoardTopCard().CardNum).ToList();
-            yield return new WaitForSeconds(1f);
+        var suggestedlist = AICards.Where(c => c._color == CardManager.Instance.BoardTopCard()._color || c.CardNum == CardManager.Instance.BoardTopCard().CardNum).ToList();
 
         if (suggestedlist.Count == 0)
         {
@@ -50,8 +52,7 @@ public class AI : MonoBehaviour
             StartCoroutine(suggestedlist[0].SortToBoard());
             print(suggestedlist[0]);
         }
-        
-
+        playedCard = false;
     }
 
 
