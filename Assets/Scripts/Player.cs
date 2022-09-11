@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    #region Instance
     public static Player Instance { get; private set; }
     private void Awake()
     {
@@ -19,19 +20,11 @@ public class Player : MonoBehaviour
             Instance = this;
         }
     }
+    #endregion
 
     [Header("Decks")]
     public List<Card> PlayerCards;
     public List<Card> sortedHand;
-
-
-
-    private void Update()
-    {
-
-    }
-
-
     public IEnumerator SortHand()
     {
         List<Card> redCards = new List<Card>();

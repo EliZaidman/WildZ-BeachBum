@@ -5,6 +5,7 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
+    #region Instance
     public static GameManager Instance { get; private set; }
     private void Awake()
     {
@@ -19,25 +20,19 @@ public class GameManager : MonoBehaviour
             Instance = this;
         }
     }
-
-    public int MaxCardInHand;
-
-    public Transform CardsTray;
-    public Transform DeckTray;
-    public TextMeshProUGUI turnTPM;
-
-
-    public string Turn;
-    public float SortDurasion;
-
-
-
-
+    #endregion
 
     [Header("Cards Pos")]
     public List<Transform> AI_CardsPos;
     [Space]
     public List<Transform> Player_CardsPos;
+
+    [SerializeField] TextMeshProUGUI turnTPM;
+    public Transform CardsTray;
+    public Transform DeckTray;
+    public int MaxCardInHand;
+    public string Turn;
+    public float SortDurasion;
 
     private void Start()
     {
@@ -48,7 +43,6 @@ public class GameManager : MonoBehaviour
         turnTPM.text = Turn;
         
     }
-
     public void ToggleTurnOrder()
     {
         if (Turn == "Player")

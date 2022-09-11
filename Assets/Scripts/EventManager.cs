@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class EventManager : MonoBehaviour
 {
+    #region Instance
     public static EventManager Instance { get; private set; }
     private void Awake()
     {
@@ -19,6 +20,7 @@ public class EventManager : MonoBehaviour
             Instance = this;
         }
     }
+    #endregion
 
 
     //Tiles Events

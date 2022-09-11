@@ -5,40 +5,32 @@ using UnityEngine;
 
 public class Card : MonoBehaviour
 {
-
+    //Managers
     AI _ai;
     Player _player;
     CardManager _cardman;
+    GameManager manager;
     [HideInInspector] public EventManager eve;
+
+    //GameObjects
     public SpriteRenderer _front;
     public SpriteRenderer _back;
-    GameManager manager;
-    public int FindSlot;
-    private float duration;
-    bool Special;
+
+    //Variables
+    public int CardNum;
+    public string _color;
     public string BelongsTo;
     public bool interactable = false;
     public bool TopCard = false;
 
     private void Awake()
     {
+        //Caching
         _player = Player.Instance;
         _ai = AI.Instance;
         manager = GameManager.Instance;
         eve = EventManager.Instance;
     }
-    public string _color;
-
-    //1 = Red 2 = Green 3 = Blue = 4 Yellow
-    public enum eColor
-    {
-        Red,
-        Green,
-        Blue,
-        Yellow,
-    }
-
-    public int CardNum;
     private void Start()
     {
         _cardman = CardManager.Instance;
@@ -105,6 +97,8 @@ public class Card : MonoBehaviour
     #region Sort Corutines
     bool sorted = false;
 
+
+    float duration;
     IEnumerator PlayerSort()
     {
         if (_player.PlayerCards.Contains(this))

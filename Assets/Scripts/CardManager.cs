@@ -6,6 +6,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 public class CardManager : MonoBehaviour
 {
+    #region Instance
     public static CardManager Instance { get; private set; }
     private void Awake()
     {
@@ -20,14 +21,9 @@ public class CardManager : MonoBehaviour
             Instance = this;
         }
     }
+    #endregion
 
-
-    GameManager manager;
-    AI _ai;
-    Player _player;
-    bool givePlayer = true;
-    public int CardsInDeck;
-
+    #region List
     public List<Card> Deck;
 
     public List<Card> Board;
@@ -39,7 +35,13 @@ public class CardManager : MonoBehaviour
     public List<Card> YellowCards;
 
     public List<Card> GreenCards;
+    #endregion
 
+    GameManager manager;
+    AI _ai;
+    Player _player;
+    bool givePlayer = true;
+    public int CardsInDeck;
     public int highestLayer = 1;
 
     private void Start()
@@ -135,10 +137,6 @@ public class CardManager : MonoBehaviour
         TopCard()._front.sortingOrder = 1;
         StartCoroutine(TopCard().SortToBoard());
     }
-
-
-
-
     public Card TopCard()
     {
         return Deck[Deck.Count - 1];

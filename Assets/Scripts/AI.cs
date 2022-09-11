@@ -6,6 +6,7 @@ using System;
 
 public class AI : MonoBehaviour
 {
+    #region Instance
     public static AI Instance { get; private set; }
     private void Awake()
     {
@@ -20,10 +21,12 @@ public class AI : MonoBehaviour
             Instance = this;
         }
     }
+    #endregion
+
     [SerializeField] float FakeTurnDuration;
     public List<Card> AICards;
-
     bool playedCard = false;
+
     private void Update()
     {
         if (GameManager.Instance.Turn == "AI" && !playedCard)
@@ -31,8 +34,6 @@ public class AI : MonoBehaviour
             StartCoroutine(PlayCard());
         }
     }
-
-    bool found = false;
     IEnumerator PlayCard()
     {
         playedCard = true;
